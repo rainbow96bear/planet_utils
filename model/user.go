@@ -13,7 +13,8 @@ type User struct {
 	Bio           string    `json:"bio,omitempty" db:"bio"`               // 자기소개
 	ProfileImage  string    `json:"profile_image" db:"profile_image"`     // 프로필 이미지 URL
 	Role          string    `json:"role" db:"role"`                       // 권한 (user/admin)
+	Theme         string    `json:"theme" db:"theme"`                     // UI 테마 (light/dark)
+	LastLogin     time.Time `json:"last_login,omitempty" db:"last_login"` // 마지막 로그인 (NULL 가능)
 	CreatedAt     time.Time `json:"created_at" db:"created_at"`           // 생성일
 	UpdatedAt     time.Time `json:"updated_at" db:"updated_at"`           // 수정일
-	LastLogin     time.Time `json:"last_login,omitempty" db:"last_login"` // 마지막 로그인 (NULL 가능)
 }
