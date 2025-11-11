@@ -10,8 +10,8 @@ type Todo struct {
 }
 
 type Calendar struct {
-	ID          uint64    `gorm:"primaryKey;column:id" json:"id"` // 실제 DB 컬럼명
-	UserUUID    string    `gorm:"column:user_id;type:char(36);not null" json:"user_uuid"`
+	EventID     uint64    `gorm:"primaryKey;column:event_id" json:"event_id"` // 실제 DB 컬럼명
+	UserUUID    string    `gorm:"column:user_uuid;type:char(36);not null" json:"user_uuid"`
 	Title       string    `gorm:"type:varchar(255);not null" json:"title"`
 	Description string    `gorm:"type:text" json:"description"`
 	Emoji       string    `gorm:"type:varchar(10);default:'📝'" json:"emoji"`
