@@ -4,16 +4,19 @@ import "time"
 
 // Todo represents a single task in a calendar event
 type Todo struct {
-	ID      uint64 `gorm:"primaryKey;column:id" json:"id"`
-	EventID uint64 `gorm:"column:event_id;not null" json:"eventId"` // FK to Calendar.EventID
+	EventID uint64 `gorm:"primaryKey;column:event_id;not null" json:"eventId"` // FK to Calendar.EventID
 	Content string `gorm:"type:varchar(255);not null" json:"content"`
 	Done    bool   `gorm:"column:done;default:false" json:"done"`
 }
 
+func (Todo) TableName() string {
+	return "calendar_todos"
+}
+
 // Calendar represents a calendar event
 type Calendar struct {
-	EventID     uint64    `gorm:"primaryKey;column:eventId" json:"eventId"` // DB PK는 그대로 유지
-	UserUUID    string    `gorm:"column:user_id;type:char(36);not null" json:"userUuid"`
+	EventID     uint64    `gorm:"primaryKey;column:event_id" json:"eventId"` // DB PK는 그대로 유지
+	UserUUID    string    `gorm:"column:user_uuid;type:char(36);not null" json:"userUuid"`
 	Title       string    `gorm:"type:varchar(255);not null" json:"title"`
 	Description string    `gorm:"type:text" json:"description"`
 	Emoji       string    `gorm:"type:varchar(10);default:'📝'" json:"emoji"`
@@ -25,4 +28,8 @@ type Calendar struct {
 	UpdatedAt   time.Time `gorm:"column:updated_at;autoUpdateTime" json:"updatedAt"`
 
 	Todos []Todo `gorm:"foreignKey:EventID;references:EventID" json:"todos"` // FK 매핑
+}
+
+func (Calendar) TableName() string {
+	return "calendar_events"
 }
