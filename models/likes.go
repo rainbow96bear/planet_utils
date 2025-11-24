@@ -7,7 +7,7 @@ import (
 )
 
 // -------------------- Like --------------------
-type Like struct {
+type Likes struct {
 	ID         uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	UserID     uuid.UUID `gorm:"type:uuid;not null"`
 	TargetType string    `gorm:"type:todo_feed_enum;not null"` // enum: 'todo','feed'

@@ -7,7 +7,7 @@ import (
 )
 
 // -------------------- Feed --------------------
-type Feed struct {
+type Feeds struct {
 	ID        uuid.UUID              `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	UserID    uuid.UUID              `gorm:"type:uuid;not null"`
 	Content   string                 `gorm:"not null"`

@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type RoomUser struct {
+type RoomUsers struct {
 	ID       uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	RoomID   uuid.UUID `gorm:"type:uuid;not null"`
 	UserID   uuid.UUID `gorm:"type:uuid;not null"`

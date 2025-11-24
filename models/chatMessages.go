@@ -7,7 +7,7 @@ import (
 )
 
 // -------------------- ChatMessage --------------------
-type ChatMessage struct {
+type ChatMessages struct {
 	ID        uuid.UUID              `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	RoomID    uuid.UUID              `gorm:"type:uuid;not null"`
 	SenderID  uuid.UUID              `gorm:"type:uuid;not null"`

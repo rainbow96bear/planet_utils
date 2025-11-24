@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type Follow struct {
+type Follows struct {
 	ID          uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	FollowerID  uuid.UUID `gorm:"type:uuid;not null"`
 	FollowingID uuid.UUID `gorm:"type:uuid;not null"`
