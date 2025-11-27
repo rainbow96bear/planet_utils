@@ -46,9 +46,9 @@ func logMessage(level int16, msg string, a ...interface{}) {
 	case DEBUG:
 		levelStr = "DEBUG"
 	case INFO:
-		levelStr = "INFO "
+		levelStr = "INFO"
 	case WARN:
-		levelStr = "WARN "
+		levelStr = "WARN"
 	case ERROR:
 		levelStr = "ERROR"
 	}
