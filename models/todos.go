@@ -12,7 +12,7 @@ type Todos struct {
 	ID       uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	UserID   uuid.UUID `gorm:"type:uuid;not null"`
 	EventID  uuid.UUID `gorm:"type:uuid;not null"`
-	Content  string    `gorm:"not null"`
+	Content  string    `gorm:"type:varchar(200);not null"`
 	IsDone   bool      `gorm:"default:false"`
 	DueTime  *time.Time
 	Metadata datatypes.JSONMap `gorm:"type:jsonb;default:'{}'"`

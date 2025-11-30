@@ -10,7 +10,7 @@ import (
 type CalendarEvents struct {
 	ID          uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
 	UserID      uuid.UUID `gorm:"type:uuid;not null"`
-	Title       string    `gorm:"size:255;not null"`
+	Title       string    `gorm:"size:50;not null"`
 	Emoji       string    `gorm:"size:10;default:'📝'"`
 	Description string    `gorm:"type:text"`
 	StartAt     time.Time `gorm:"not null"`
