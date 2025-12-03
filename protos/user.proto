@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+package user; // Protobuf 패키지 이름
+
+// Go 패키지 경로 (planet_utils/pb 폴더에 생성됨)
+option go_package = "github.com/your-repo/planet_utils/pb"; 
