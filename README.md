@@ -1,6 +1,6 @@
 # planet_utils
 
-gRPC 컴파일 명령 : protoc --proto_path=./protos --go_out=./pb --go-grpc_out=./pb ./protos/*proto
+gRPC 컴파일 명령 : protoc --proto_path=./protos --go_out=. --go-grpc_out=. ./protos/*proto
 
 `protoc` 명령어 옵션들의 역할과 설명
 
