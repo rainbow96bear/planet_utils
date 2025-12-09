@@ -4,4 +4,32 @@ package user; // Protobuf 패키지 이름
 
 option go_package = "./pb"; 
 
-service UserService {}
+// -------------------------
+// UserService gRPC 정의
+// -------------------------
+service UserService {
+  // 유저 생성
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+
+  // 향후를 위한 추가 API 예시 (선택)
+  // rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  // rpc UpdateProfile (UpdateProfileRequest) returns (UpdateProfileResponse);
+}
+
+// -------------------------
+// 요청 메시지
+// -------------------------
+message CreateUserRequest {
+  string userId = 1;        // UUID (auth 서버에서 생성)
+  string nickname = 2;
+  optional string profileImage = 3;
+  optional string bio = 4;
+}
+
+// -------------------------
+// 응답 메시지
+// -------------------------
+message CreateUserResponse {
+  bool success = 1;
+  string message = 2;       // 오류 설명 등
+}

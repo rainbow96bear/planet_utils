@@ -21,6 +21,12 @@ type CustomClaims struct {
 	jwt.RegisteredClaims
 }
 
+type SignupClaims struct {
+	Provider   string `json:"provider"`
+	ProviderID string `json:"provider_id"`
+	jwt.RegisteredClaims
+}
+
 // ----------------------------------------------------------------------
 // 2. JWT 생성 함수 (Signing)
 // ----------------------------------------------------------------------
@@ -104,4 +110,49 @@ func GenerateRefreshToken() (string, error) {
 	refreshToken := base64.URLEncoding.EncodeToString(tokenBytes)
 
 	return refreshToken, nil
+}
+
+func GenerateSignupToken(provider, providerID, secret string, expiry time.Time) (string, error) {
+
+	claims := SignupClaims{
+		Provider:   provider,
+		ProviderID: providerID,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(expiry),
+			IssuedAt:  jwt.NewNumericDate(time.Now()),
+			NotBefore: jwt.NewNumericDate(time.Now()),
+		},
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	signed, err := token.SignedString([]byte(secret))
+	if err != nil {
+		return "", fmt.Errorf("failed to sign signup token: %w", err)
+	}
+
+	return signed, nil
+}
+
+func ParseAndVerifySignupClaims(tokenStr, secret string) (*SignupClaims, error) {
+	claims := &SignupClaims{}
+
+	token, err := jwt.ParseWithClaims(tokenStr, claims, func(t *jwt.Token) (interface{}, error) {
+		// HS256 검증
+		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("unexpected signing method: %v", t.Header["alg"])
+		}
+		return []byte(secret), nil
+	})
+
+	if err != nil {
+		return nil, fmt.Errorf("signup token parsing failed: %w", err)
+	}
+
+	// 만료 등 최종 검증
+	if !token.Valid {
+		return nil, fmt.Errorf("signup token is invalid or expired")
+	}
+
+	return claims, nil
 }
