@@ -11,3 +11,9 @@ gRPC 컴파일 명령 : protoc --proto_path=./protos --go_out=. --go-grpc_out=. 
 | `--go_out=./pb` | Go 코드 출력 설정 | 일반 Protobuf 메시지(구조체) 코드를 `./pb` 폴더에 생성합니다. |
 | `--go-grpc_out=./pb` | gRPC 코드 출력 설정 | gRPC 서버/클라이언트 인터페이스 코드를 `./pb` 폴더에 생성합니다. |
 | `./protos/*.proto` | 컴파일 대상 파일 | `./protos/` 디렉토리 내부의 모든 `.proto` 파일을 컴파일 대상으로 지정합니다. |
+
+
+## 브랜치 생성
+git checkout -b [브랜치 명]
+## 브랜치 등록
+git push -u origin [브랜치 명]
