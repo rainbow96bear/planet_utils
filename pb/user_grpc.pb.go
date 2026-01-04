@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	UserService_CreateUser_FullMethodName = "/user.UserService/CreateUser"
+	UserService_CreateProfile_FullMethodName = "/user.UserService/CreateProfile"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -27,7 +27,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
 	// 유저 생성
-	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
+	CreateProfile(ctx context.Context, in *CreateProfileRequest, opts ...grpc.CallOption) (*CreateProfileResponse, error)
 }
 
 type userServiceClient struct {
@@ -38,9 +38,9 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
-	out := new(CreateUserResponse)
-	err := c.cc.Invoke(ctx, UserService_CreateUser_FullMethodName, in, out, opts...)
+func (c *userServiceClient) CreateProfile(ctx context.Context, in *CreateProfileRequest, opts ...grpc.CallOption) (*CreateProfileResponse, error) {
+	out := new(CreateProfileResponse)
+	err := c.cc.Invoke(ctx, UserService_CreateProfile_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +52,7 @@ func (c *userServiceClient) CreateUser(ctx context.Context, in *CreateUserReques
 // for forward compatibility
 type UserServiceServer interface {
 	// 유저 생성
-	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
+	CreateProfile(context.Context, *CreateProfileRequest) (*CreateProfileResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -60,8 +60,8 @@ type UserServiceServer interface {
 type UnimplementedUserServiceServer struct {
 }
 
-func (UnimplementedUserServiceServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+func (UnimplementedUserServiceServer) CreateProfile(context.Context, *CreateProfileRequest) (*CreateProfileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateProfile not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 
@@ -76,20 +76,20 @@ func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
 	s.RegisterService(&UserService_ServiceDesc, srv)
 }
 
-func _UserService_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateUserRequest)
+func _UserService_CreateProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateProfileRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).CreateUser(ctx, in)
+		return srv.(UserServiceServer).CreateProfile(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_CreateUser_FullMethodName,
+		FullMethod: UserService_CreateProfile_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).CreateUser(ctx, req.(*CreateUserRequest))
+		return srv.(UserServiceServer).CreateProfile(ctx, req.(*CreateProfileRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -102,8 +102,8 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateUser",
-			Handler:    _UserService_CreateUser_Handler,
+			MethodName: "CreateProfile",
+			Handler:    _UserService_CreateProfile_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

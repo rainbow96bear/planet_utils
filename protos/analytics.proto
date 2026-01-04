@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package analytics;
+
+option go_package = "./pb"; 
+
+service AnalyticsService {
+  rpc PublishEvent (PublishEventRequest) returns (PublishEventResponse);
+}
+
+message PublishEventRequest {
+  string event_name = 1;
+  string user_id = 2;
+  string anonymous_id = 3;
+  string session_id = 4;
+  int64 occurred_at = 5; // unix timestamp
+  map<string, string> properties = 6;
+}
+
+message PublishEventResponse {
+  bool success = 1;
+}

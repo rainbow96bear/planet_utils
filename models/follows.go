@@ -7,8 +7,8 @@ import (
 )
 
 type Follows struct {
-	ID          uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
-	FollowerID  uuid.UUID `gorm:"type:uuid;not null"`
-	FollowingID uuid.UUID `gorm:"type:uuid;not null"`
-	CreatedAt   time.Time
+	ID         uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
+	FollowerID uuid.UUID `gorm:"type:uuid;not null"`
+	FolloweeID uuid.UUID `gorm:"type:uuid;not null"`
+	CreatedAt  time.Time
 }
