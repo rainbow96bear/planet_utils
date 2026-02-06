@@ -6,48 +6,24 @@ package auth; // Protobuf 패키지 이름
 
 option go_package = "./pb"; 
 
+// ============================
+// Auth Service
+// ============================
+
 service AuthService {
-  // 일반 이메일/비밀번호를 사용한 회원가입 RPC
-  rpc Signup (SignupRequest) returns (AuthPayload);
-
-  // 일반 이메일/비밀번호를 사용한 로그인 RPC
-  rpc Login (LoginRequest) returns (AuthPayload);
-
-  // 토큰 유효성 검사 RPC (다른 Microservice에서 호출하여 권한 확인)
-  rpc ValidateToken (ValidateTokenRequest) returns (ValidateTokenResponse);
-  
-  // 리프레시 토큰을 사용한 새 토큰 발급 RPC
-  rpc RefreshToken (AuthPayload) returns (AuthPayload);
+  // 사용자 계정을 ACTIVE 상태로 활성화한다
+  rpc ActivateUser (ActivateUserRequest)
+      returns (ActivateUserResponse);
 }
 
-// 로그인 요청 시 클라이언트가 Auth Server로 보내는 데이터
-message LoginRequest {
-  string email = 1;
-  string password = 2;
+// ============================
+// Requests / Responses
+// ============================
+
+message ActivateUserRequest {
+  string user_id = 1;
 }
 
-// 회원가입 요청 시 클라이언트가 Auth Server로 보내는 데이터
-message SignupRequest {
-  string email = 1;
-  string password = 2;
-  string display_name = 3; // User Server로 전달할 프로필 데이터
-}
-
-// 로그인/회원가입 성공 시 클라이언트에게 반환할 최종 데이터
-message AuthPayload {
-  string access_token = 1;
-  string refresh_token = 2;
-  string user_id = 3; // JWT 페이로드에 포함되는 사용자 ID
-}
-
-// 토큰 유효성 검사 요청 (다른 서버가 Auth Server에 호출)
-message ValidateTokenRequest {
-  string access_token = 1;
-}
-
-// 토큰 유효성 검사 응답
-message ValidateTokenResponse {
-  bool is_valid = 1;
-  string user_id = 2; // 유효할 경우 추출된 사용자 ID
-  string role = 3; // 사용자 권한 (예: admin, member)
+message ActivateUserResponse {
+  bool success = 1;
 }
